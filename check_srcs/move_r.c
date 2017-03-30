@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/29 16:52:02 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/03/29 18:10:05 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/03/30 17:51:32 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,26 @@
 
 void		ps_move_ra(t_list **a, t_list **b)
 {
-	t_list *l
+	t_list *l;
 
 	(void)b;
-	if (!(l = *a))
+	if (!(l = *a) || !(l->next))
 		return ;
-	*a = (*a)->next;
 	ft_lstpushback(a, l);
+	*a = (*a)->next;
+	l->next = 0;
 }
 
 void		ps_move_rb(t_list **a, t_list **b)
 {
-	t_list *l
+	t_list *l;
 
 	(void)a;
-	if (!(l = *b))
+	if (!(l = *b) || !(l->next))
 		return ;
-	*b = (*b)->next;
 	ft_lstpushback(b, l);
+	*b = (*b)->next;
+	l->next = 0;
 }
 
 void		ps_move_rr(t_list **a, t_list **b)

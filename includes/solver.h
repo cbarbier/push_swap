@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   checker.h                                        :+:      :+:    :+:   */
+/*   solver.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/06 14:12:45 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/03/30 13:54:33 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/03/30 13:54:18 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CHECKER_H
-# define CHECKER_H
+#ifndef SOLVER_H
+# define SOLVER_H
 # include "push_swap.h"
 # include "../libft/includes/libft.h"
 
-int				checker_core(t_ps *ps);
+int				solver_core(t_ps *ps);
 
 #endif

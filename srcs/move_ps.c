@@ -1,55 +1,59 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   move_rr.c                                          :+:      :+:    :+:   */
+/*   move_ps.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/29 16:52:02 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/03/30 17:44:40 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/03/30 14:05:48 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/checker.h"
+#include "../includes/solver.h"
 
-void		ps_move_rra(t_list **a, t_list **b)
+void		ps_move_sa(t_list **a, t_list **b)
 {
-	t_list *l;
-	t_list *tmp;
-
 	(void)b;
-	if (!(l = *a) || !(l->next))
+	if (!*a || !(*a)->next)
 		return ;
-	while (l->next)
-	{
-		tmp = l;
-		l = l->next;
-	}
-	tmp->next = 0;
-	l->next = *a;
-	*a = l;
+	ft_memswap(&((*a)->content), &((*a)->next->content));
 }
 
-void		ps_move_rrb(t_list **a, t_list **b)
+void		ps_move_sb(t_list **a, t_list **b)
 {
-	t_list *l;
+	(void)a;
+	if (!(*b) || !(*b)->next)
+		return ;
+	ft_memswap(&((*b)->content), &((*b)->next->content));
+}
+
+void		ps_move_ss(t_list **a, t_list **b)
+{
+	ps_move_sa(a, b);	
+	ps_move_sb(a, b);	
+}
+
+void		ps_move_pa(t_list **a, t_list **b)
+{
 	t_list *tmp;
 
-	(void)a;
-	if (!(l = *b) || !(l->next))
+	if (!*b)
 		return ;
-	while (l->next)
-	{
-		tmp = l;
-		l = l->next;
-	}
-	tmp->next = 0;
-	l->next = *b;
-	*b = l;
+	tmp = *b;
+	*b = (*b)->next;
+	tmp->next = *a;
+	*a = tmp;
 }
 
-void		ps_move_rrr(t_list **a, t_list **b)
+void		ps_move_pb(t_list **a, t_list **b)
 {
-	ps_move_rra(a, b);
-	ps_move_rrb(a, b);
+	t_list *tmp;
+
+	if (!*a)
+		return ;
+	tmp = *a;
+	*a = (*a)->next;
+	tmp->next = *b;
+	*b = tmp;
 }

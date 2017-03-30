@@ -6,11 +6,11 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/29 16:52:02 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/03/30 17:44:40 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/03/30 14:00:38 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/checker.h"
+#include "../includes/solver.h"
 
 void		ps_move_rra(t_list **a, t_list **b)
 {
@@ -18,7 +18,7 @@ void		ps_move_rra(t_list **a, t_list **b)
 	t_list *tmp;
 
 	(void)b;
-	if (!(l = *a) || !(l->next))
+	if (!(l = *a))
 		return ;
 	while (l->next)
 	{
@@ -36,7 +36,7 @@ void		ps_move_rrb(t_list **a, t_list **b)
 	t_list *tmp;
 
 	(void)a;
-	if (!(l = *b) || !(l->next))
+	if (!(l = *b))
 		return ;
 	while (l->next)
 	{
