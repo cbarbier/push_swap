@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/06 14:12:45 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/03/30 16:48:08 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/03/30 20:41:28 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,18 @@
 # define NB_MOVE	11
 # include "../libft/includes/libft.h"
 
-typedef struct		s_pshandler
+typedef struct	s_pshandler
 {
 	char	ope[3];
 	void	(*f)(t_list **a, t_list **b);
-}					t_pshandler;
+}				t_pshandler;
 
-typedef struct		s_ps
+typedef struct	s_ps
 {
 	t_pshandler	handlers[NB_MOVE];
 	t_list		*a;
 	t_list		*b;
-}					t_ps;
+}				t_ps;
 
 void			ps_move_sa(t_list **a, t_list **b);
 void			ps_move_sb(t_list **a, t_list **b);

@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/29 12:05:14 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/03/30 16:45:06 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/03/30 17:53:16 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,17 +37,17 @@ static int				ft_myatoi(char *str, int *a)
 	return (str[i] ? 0 : 1);
 }
 
-static int				add_elem(t_list	**l, int data)
+static int				add_elem(t_list **l, int data)
 {
 	t_list *elm;
 
-	if(!(elm = ft_lstnew((void*)&data, sizeof(int))))
+	if (!(elm = ft_lstnew((void*)&data, sizeof(int))))
 		return (0);
 	ft_lstpushback(l, elm);
 	return (1);
 }
 
-void				free_int(void *data, size_t size)
+void					free_int(void *data, size_t size)
 {
 	(void)size;
 	free(data);
@@ -65,13 +65,18 @@ int						main(int argc, char **argv)
 	index = 1;
 	while (index < argc)
 	{
-		if (!ft_myatoi(argv[index++], &data) ||!add_elem(&(ps.a), data))
+		if (!ft_myatoi(argv[index++], &data) || !add_elem(&(ps.a), data))
 		{
 			ft_lstdel(&(ps.a), free_int);
 			ft_fprintf(2, "Error\n");
 			return (0);
 		}
 	}
-	solver_core(&ps);
+	if (!solver_core(&ps))
+		return (1);
+	if (is_sort(&ps))
+		ft_printf("OK\n");
+	else
+		ft_printf("KO\n");
 	return (0);
 }

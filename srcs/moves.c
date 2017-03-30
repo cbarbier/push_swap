@@ -1,29 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   move.c                                             :+:      :+:    :+:   */
+/*   moves.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/03/30 10:07:00 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/03/30 13:57:38 by cbarbier         ###   ########.fr       */
+/*   Created: 2017/03/30 17:54:28 by cbarbier          #+#    #+#             */
+/*   Updated: 2017/03/30 18:14:46 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/solver.h"
 
 static void		set_handler
-		(t_pshandler *h, char *o, void (*f)(t_list **, t_list **))
+	(t_pshandler *h, char *o, void (*f)(t_list **, t_list **))
 {
+	ft_bzero(h->ope, sizeof(h->ope));
 	ft_strcpy(h->ope, o);
 	h->f = f;
 }
+
 int				init_handlers(t_ps *ps)
 {
 	t_pshandler		*h;
 
 	h = ps->handlers;
-	ft_bzero(h, NB_MOVE * sizeof(t_pshandler));
 	set_handler(h, "sa", ps_move_sa);
 	set_handler(h + 1, "sb", ps_move_sb);
 	set_handler(h + 2, "ss", ps_move_ss);

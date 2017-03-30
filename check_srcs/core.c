@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/30 11:55:44 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/03/30 17:50:52 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/03/30 21:07:42 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,10 +61,13 @@ int				checker_core(t_ps *ps)
 		if (!call_handler(ps, line))
 		{
 			ft_lstdel(&(ps->a), free_int);
+			ft_lstdel(&(ps->b), free_int);
 			ft_fprintf(2, "Error\n");
+			ft_strdel(&line);
 			return (0);
 		}
 		put_lists(ps);
+		ft_strdel(&line);
 	}
 	return (1);
 }
