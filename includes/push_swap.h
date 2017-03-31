@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/06 14:12:45 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/03/30 20:41:28 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/03/31 17:07:09 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ typedef struct	s_pshandler
 {
 	char	ope[3];
 	void	(*f)(t_list **a, t_list **b);
+	int		oppo;
+	int		reverse;
 }				t_pshandler;
 
 typedef struct	s_ps

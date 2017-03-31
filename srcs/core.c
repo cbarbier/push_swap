@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/30 11:55:44 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/03/30 17:50:52 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/03/31 17:56:46 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,21 +50,29 @@ int				is_sort(t_ps *ps)
 	return (ps->b ? 0 : 1);
 }
 
-int				solver_core(t_ps *ps)
+int				init_solver(t_ps *ps, t_solver *solver)
 {
-	char		*line;
+	ft_bzero(solver, sizeof(t_solver));
+	max = ft_lstlen(ps->a);
+	max *= max;
+	return (1);
+}
 
-	init_handlers(ps);
+int				solver_core(t_ps *ps, t_solver *solver)
+{
+	int 	index;
+	int 	i;
+
 	put_lists(ps);
-	while (get_next_line(0, &line) > 0)
+	index = 0;
+	i = 0x3FF;
+	while (index < NB_MOVE)
 	{
-		if (!call_handler(ps, line))
-		{
-			ft_lstdel(&(ps->a), free_int);
-			ft_fprintf(2, "Error\n");
-			return (0);
-		}
-		put_lists(ps);
+		if (!(i & index))
+			ps->handlers[index].f(&(ps->a), &(ps->b));
+		solver_core(t_ps *ps);
+		index++;
+		i >>= 1;
 	}
 	return (1);
 }

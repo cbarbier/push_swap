@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/29 12:05:14 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/03/30 17:53:16 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/03/31 17:56:49 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ int						main(int argc, char **argv)
 			return (0);
 		}
 	}
+	init_handlers(&ps);
 	if (!solver_core(&ps))
 		return (1);
 	if (is_sort(&ps))

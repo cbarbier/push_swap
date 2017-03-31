@@ -1,26 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   solver.h                                           :+:      :+:    :+:   */
+/*   solver.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/03/06 14:12:45 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/03/31 17:06:28 by cbarbier         ###   ########.fr       */
+/*   Created: 2017/03/31 14:53:52 by cbarbier          #+#    #+#             */
+/*   Updated: 2017/03/31 17:56:51 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SOLVER_H
-# define SOLVER_H
-# include "push_swap.h"
-# include "../libft/includes/libft.h"
+#include "../includes/solver.h"
 
-typedef struct	s_solver
+int				init_solver(t_ps *ps, t_solver *solver)
 {
-	t_list		*cmds;
-	t_list		*prec;
-	int			max;
-}				t_solver;
-int				solver_core(t_ps *ps);
+	ft_bzero(solver, sizeof(t_solver));
+	max = ft_lstlen(ps->a);
+	max *= max;
+	return (1);
+}
 
-#endif
+
