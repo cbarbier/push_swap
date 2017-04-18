@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/30 17:54:28 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/03/31 15:36:36 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/04/18 17:32:11 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,26 @@
 static void		set_handler(t_pshandler *h, char *o,
 		void (*f)(t_list **, t_list **), int oppo)
 {
+	static int index = 0;
 	ft_bzero(h->ope, sizeof(h->ope));
 	ft_strcpy(h->ope, o);
 	h->f = f;
 	h->oppo = oppo;
+}
+
+static void		set_reverse_handlers(t_pshandler *h)
+{
+	h[0]->reverse = 1;
+	h[1]->reverse = 0;
+	h[2]->reverse = 2;
+	h[3]->reverse = 4;
+	h[4]->reverse = 3;
+	h[5]->reverse = 8;
+	h[6]->reverse = 9;
+	h[7]->reverse = 7;
+	h[8]->reverse = 5;
+	h[9]->reverse = 6;
+	h[10]->reverse = 10;
 }
 
 int				init_handlers(t_ps *ps)
@@ -37,6 +53,7 @@ int				init_handlers(t_ps *ps)
 	set_handler(h + 8, "rra", ps_move_rra, 0x28);
 	set_handler(h + 9, "rrb", ps_move_rrb, 0x18);
 	set_handler(h + 10, "rrr", ps_move_rrr, 0x38);
+	set_reverse_handlers(h);
 	return (1);
 }
 

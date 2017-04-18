@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/30 11:55:44 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/03/31 17:56:46 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/04/18 19:07:10 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,24 +53,24 @@ int				is_sort(t_ps *ps)
 int				init_solver(t_ps *ps, t_solver *solver)
 {
 	ft_bzero(solver, sizeof(t_solver));
-	max = ft_lstlen(ps->a);
-	max *= max;
+	solver->max = ft_lstlen(ps->a);
+	solver->max *= solver->max;
 	return (1);
 }
 
-int				solver_core(t_ps *ps, t_solver *solver)
+int				solver_core(t_ps *ps, t_solver *solver, int index_handler)
 {
 	int 	index;
 	int 	i;
 
 	put_lists(ps);
+	ps->handlers[index_handler].f(&(ps->a), &(ps->b));
 	index = 0;
 	i = 0x3FF;
 	while (index < NB_MOVE)
 	{
 		if (!(i & index))
-			ps->handlers[index].f(&(ps->a), &(ps->b));
-		solver_core(t_ps *ps);
+		solver_core(ps, solver);
 		index++;
 		i >>= 1;
 	}
