@@ -58,21 +58,31 @@ int				init_solver(t_ps *ps, t_solver *solver)
 	return (1);
 }
 
-int				solver_core(t_ps *ps, t_solver *solver, int index_handler)
+int				solver_core(t_ps *ps, t_solver *solver, int index_handler, int loop)
 {
 	int 	index;
 	int 	i;
 
+	if (loop > solver->max)
+		return (0);
+	if (is_sort(ps))
+	{
+		solver->max = loop;
+		solver->sol = ft_lstcpy(solver->path);
+		return (0);
+	}
 	put_lists(ps);
 	ps->handlers[index_handler].f(&(ps->a), &(ps->b));
+	add_to_path(ps, solver);
 	index = 0;
-	i = 0x3FF;
+	i = 0x400;
 	while (index < NB_MOVE)
 	{
-		if (!(i & index))
-		solver_core(ps, solver);
+		if (!(i & ps->handlers[index_handler].oppo))
+			if (!solver_core(ps, solver, index, loop + 1))
+				remove_from_path(ps, solver);
 		index++;
 		i >>= 1;
 	}
-	return (1);
+	return (0);
 }
