@@ -6,14 +6,14 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/30 17:54:28 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/04/19 14:47:57 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/04/19 17:45:39 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/solver.h"
 
 static void		set_handler(t_pshandler *h, char *o,
-		void (*f)(t_list **, t_list **), int oppo)
+		int (*f)(t_list **, t_list **), int oppo)
 {
 	ft_bzero(h->ope, sizeof(h->ope));
 	ft_strcpy(h->ope, o);

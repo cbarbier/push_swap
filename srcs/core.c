@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/30 11:55:44 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/04/19 17:33:24 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/04/19 19:57:11 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,14 +84,13 @@ static int		put_path(t_path *p)
 	return (1);
 }
 
-int				solver_core(t_ps *ps, t_solver *solver, int index_handler, int loop)
+int				solver_core(t_ps *ps, t_solver *solver, int loop)
 {
 	int 	index;
 	int 	i;
 
 	if (loop >= solver->max)
 		return (1);
-	ft_printf("core => ind_hand: %d  loop: %d max: %d\n", index_handler, loop, solver->max);
 	put_path(solver->path);
 	if (is_sort(ps))
 	{
@@ -100,18 +99,21 @@ int				solver_core(t_ps *ps, t_solver *solver, int index_handler, int loop)
 		pathcpy(solver, &(solver->sol));
 		return (1);
 	}
-	put_lists(ps);
-	ps->handlers[index_handler].f(&(ps->a), &(ps->b));
-	add_to_path(ps, solver, index_handler);
 	index = 0;
 	i = 0x400;
 	while (index < NB_MOVE)
 	{
-		if (!(i & ps->handlers[index].oppo))
-			solver_core(ps, solver, index, loop + 1);
+		ft_printf("core => ind_hand: %d  loop: %d max: %d\n", index, loop, solver->max);
+		if (ps->handlers[index].f(&(ps->a), &(ps->b)))
+		{
+			put_lists(ps);
+			add_to_path(ps, solver, index);
+			if (!(i & ps->handlers[index].oppo))
+				solver_core(ps, solver, loop + 1);
+			remove_from_path(ps, solver, ps->handlers[index].reverse);
+		}
 		index++;
 		i >>= 1;
 	}
-	remove_from_path(ps, solver, ps->handlers[index_handler].reverse);
 	return (0);
 }

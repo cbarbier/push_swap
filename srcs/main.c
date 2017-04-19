@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/29 12:05:14 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/04/19 17:26:01 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/04/19 19:51:57 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,14 +55,7 @@ void					free_int(void *data, size_t size)
 
 static void				ps_core(t_ps *ps, t_solver *solver)
 {
-	int 		index;
-
-	index = 0;
-	while (index < NB_MOVE)
-	{
-		ft_printf("##########################################################################################################\n");
-		solver_core(ps, solver, index++, 0);
-	}
+	solver_core(ps, solver, 0);
 	print_sol(solver);
 	free_path(solver->sol);
 	free_path(solver->path);
