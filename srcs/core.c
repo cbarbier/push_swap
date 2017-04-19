@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/30 11:55:44 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/04/18 19:07:10 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/04/19 17:33:24 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,11 +50,37 @@ int				is_sort(t_ps *ps)
 	return (ps->b ? 0 : 1);
 }
 
-int				init_solver(t_ps *ps, t_solver *solver)
+int				init_solver(t_ps *ps, t_solver *solver, t_path **start)
 {
+	int		index;
+	t_path	*tmp;
+
+	index = 0;
 	ft_bzero(solver, sizeof(t_solver));
-	solver->max = ft_lstlen(ps->a);
-	solver->max *= solver->max;
+	solver->max = NB_MOVE * ft_lstlen(ps->a);
+	if (!(*start = (t_path *)ft_memalloc(sizeof(t_path))))
+		return (0);
+	while (index <= solver->max)
+	{
+		if (!(tmp = (t_path *)ft_memalloc(sizeof(t_path))))
+			return (0);
+		tmp->next = *start;
+		(*start)->prec = tmp;
+		*start = tmp;
+		index++;
+	}
+	solver->last = solver->path;
+	return (1);
+}
+
+static int		put_path(t_path *p)
+{
+	while (p && *(p->ope))
+	{
+		ft_printf("%s ", p->ope);
+		p = p->next;
+	}
+	ft_printf("\n");
 	return (1);
 }
 
@@ -63,26 +89,29 @@ int				solver_core(t_ps *ps, t_solver *solver, int index_handler, int loop)
 	int 	index;
 	int 	i;
 
-	if (loop > solver->max)
-		return (0);
+	if (loop >= solver->max)
+		return (1);
+	ft_printf("core => ind_hand: %d  loop: %d max: %d\n", index_handler, loop, solver->max);
+	put_path(solver->path);
 	if (is_sort(ps))
 	{
+		ft_printf("{grn}>>>>>>>>>>>>>>>>>SORTED<<<<<<<<<<<<<<<<<{no}\n");
 		solver->max = loop;
-		solver->sol = ft_lstcpy(solver->path);
-		return (0);
+		pathcpy(solver, &(solver->sol));
+		return (1);
 	}
 	put_lists(ps);
 	ps->handlers[index_handler].f(&(ps->a), &(ps->b));
-	add_to_path(ps, solver);
+	add_to_path(ps, solver, index_handler);
 	index = 0;
 	i = 0x400;
 	while (index < NB_MOVE)
 	{
-		if (!(i & ps->handlers[index_handler].oppo))
-			if (!solver_core(ps, solver, index, loop + 1))
-				remove_from_path(ps, solver);
+		if (!(i & ps->handlers[index].oppo))
+			solver_core(ps, solver, index, loop + 1);
 		index++;
 		i >>= 1;
 	}
+	remove_from_path(ps, solver, ps->handlers[index_handler].reverse);
 	return (0);
 }

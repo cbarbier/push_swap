@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/29 12:05:14 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/03/31 17:56:49 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/04/19 17:26:01 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,25 @@ void					free_int(void *data, size_t size)
 	free(data);
 }
 
+static void				ps_core(t_ps *ps, t_solver *solver)
+{
+	int 		index;
+
+	index = 0;
+	while (index < NB_MOVE)
+	{
+		ft_printf("##########################################################################################################\n");
+		solver_core(ps, solver, index++, 0);
+	}
+	print_sol(solver);
+	free_path(solver->sol);
+	free_path(solver->path);
+}
+
 int						main(int argc, char **argv)
 {
 	t_ps		ps;
+	t_solver	solver;
 	int			data;
 	int			index;
 
@@ -69,15 +85,11 @@ int						main(int argc, char **argv)
 		{
 			ft_lstdel(&(ps.a), free_int);
 			ft_fprintf(2, "Error\n");
-			return (0);
+			return (1);
 		}
 	}
 	init_handlers(&ps);
-	if (!solver_core(&ps))
-		return (1);
-	if (is_sort(&ps))
-		ft_printf("OK\n");
-	else
-		ft_printf("KO\n");
+	init_solver(&ps, &solver, &(solver.path));
+	ps_core(&ps, &solver);
 	return (0);
 }
