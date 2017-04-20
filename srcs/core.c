@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/30 11:55:44 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/04/20 11:11:22 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/04/20 16:29:04 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,14 +54,14 @@ int				init_solver(t_ps *ps, t_solver *solver, t_path **start)
 {
 	int		index;
 	t_path	*tmp;
-	int		max;
 
 	index = 1;
 	ft_bzero(solver, sizeof(t_solver));
-	max = NB_MOVE * ft_lstlen(ps->a);
+	solver->max = ft_lstlen(ps->a) * NB_MOVE;
+	ft_printf("solver->max: %zd\n", solver->max);
 	if (!(*start = (t_path *)ft_memalloc(sizeof(t_path))))
 		return (0);
-	while (index < max)
+	while (index < solver->max)
 	{
 		if (!(tmp = (t_path *)ft_memalloc(sizeof(t_path))))
 			return (0);
@@ -74,31 +74,18 @@ int				init_solver(t_ps *ps, t_solver *solver, t_path **start)
 	return (1);
 }
 
-int				solver_core(t_ps *ps, t_solver *solver, int loop)
+int				solver_core(t_ps *ps, t_solver *solver)
 {
-	int 	index;
-	int 	i;
-
-	if (is_sort(ps))
+	while (!is_sort(ps))
 	{
-		pathcpy(solver, &(solver->sol));
-		return (1);
-	}
-	if (loop > solver->max)
-		return (0);
-	index = 0;
-	i = 0x400;
-	while (index < NB_MOVE)
-	{
-		if (!(i & ps->handlers[index].oppo) && ps->handlers[index].f(&(ps->a), &(ps->b)))
+		if ((int)(ps->a->content) > (int)(ps->a->next->content))
 		{
-			add_to_path(ps, solver, index);
-			if (solver_core(ps, solver, loop + 1))
-				return (1);
-			remove_from_path(ps, solver, ps->handlers[index].reverse);
+			ps->handlers[0].f(&(ps->a), &(ps->b));
+			add_to_path(ps, solver, 0);
 		}
-		index++;
-		i >>= 1;
+		ps->handlers[5].f(&(ps->a), &(ps->b));
+		add_to_path(ps, solver, 5);
 	}
+	pathcpy(solver, &(solver->sol));
 	return (0);
 }

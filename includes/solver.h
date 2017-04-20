@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/06 14:12:45 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/04/19 19:51:28 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/04/20 15:05:54 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int				call_handler(t_ps *ps, char *ope);
 void			free_int(void *data, size_t size);
 int				is_sort(t_ps *ps);
 int				init_solver(t_ps *ps, t_solver *solver, t_path **start);
-int				solver_core(t_ps *ps, t_solver *solver, int l);
+int				solver_core(t_ps *ps, t_solver *solver);
 int				add_to_path(t_ps *ps, t_solver *solver, int index);
 int				remove_from_path(t_ps *ps, t_solver *solver, int i);
 int				print_sol(t_solver *solver);

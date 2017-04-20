@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/29 12:05:14 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/04/20 08:21:26 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/04/20 15:05:37 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,7 @@ void					free_int(void *data, size_t size)
 
 static void				ps_core(t_ps *ps, t_solver *solver)
 {
-	while (!solver_core(ps, solver, 0))
-		++(solver->max);
+	solver_core(ps, solver);
 	print_sol(solver);
 	free_path(solver->sol);
 	free_path(solver->path);
