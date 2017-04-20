@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/30 11:55:44 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/04/19 19:57:11 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/04/20 09:30:57 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,13 +54,14 @@ int				init_solver(t_ps *ps, t_solver *solver, t_path **start)
 {
 	int		index;
 	t_path	*tmp;
+	int		max;
 
-	index = 0;
+	index = 1;
 	ft_bzero(solver, sizeof(t_solver));
-	solver->max = NB_MOVE * ft_lstlen(ps->a);
+	max = NB_MOVE * ft_lstlen(ps->a);
 	if (!(*start = (t_path *)ft_memalloc(sizeof(t_path))))
 		return (0);
-	while (index <= solver->max)
+	while (index < max)
 	{
 		if (!(tmp = (t_path *)ft_memalloc(sizeof(t_path))))
 			return (0);
@@ -75,6 +76,7 @@ int				init_solver(t_ps *ps, t_solver *solver, t_path **start)
 
 static int		put_path(t_path *p)
 {
+	ft_printf("path: ");
 	while (p && *(p->ope))
 	{
 		ft_printf("%s ", p->ope);
@@ -89,29 +91,35 @@ int				solver_core(t_ps *ps, t_solver *solver, int loop)
 	int 	index;
 	int 	i;
 
-	if (loop >= solver->max)
-		return (1);
-	put_path(solver->path);
 	if (is_sort(ps))
 	{
 		ft_printf("{grn}>>>>>>>>>>>>>>>>>SORTED<<<<<<<<<<<<<<<<<{no}\n");
-		solver->max = loop;
 		pathcpy(solver, &(solver->sol));
 		return (1);
 	}
+	if (loop > solver->max)
+	{
+		ft_printf("max reached\n");
+		return (0);
+	}
+	put_path(solver->path);
 	index = 0;
 	i = 0x400;
 	while (index < NB_MOVE)
 	{
-		ft_printf("core => ind_hand: %d  loop: %d max: %d\n", index, loop, solver->max);
-		if (ps->handlers[index].f(&(ps->a), &(ps->b)))
+		ft_printf("core => move: %s  loop: %d max: %d\n", ps->handlers[index].ope, loop, solver->max);
+		if (!(i & ps->handlers[index].oppo) && ps->handlers[index].f(&(ps->a), &(ps->b)))
 		{
+			ft_printf("move done\n");
 			put_lists(ps);
 			add_to_path(ps, solver, index);
-			if (!(i & ps->handlers[index].oppo))
-				solver_core(ps, solver, loop + 1);
+			if (solver_core(ps, solver, loop + 1))
+				return (1);
 			remove_from_path(ps, solver, ps->handlers[index].reverse);
+			put_lists(ps);
 		}
+		else
+			ft_printf("move skipped\n");
 		index++;
 		i >>= 1;
 	}

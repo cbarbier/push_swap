@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/29 16:52:02 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/04/19 17:41:21 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/04/20 09:36:39 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ int		ps_move_sb(t_list **a, t_list **b)
 
 int		ps_move_ss(t_list **a, t_list **b)
 {
+	if (!(*a) || !((*a)->next) || !(*b) || !((*b)->next))
+		return (0);
 	ps_move_sa(a, b);
 	ps_move_sb(a, b);
 	return (1);
