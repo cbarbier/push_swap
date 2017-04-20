@@ -6,13 +6,13 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/30 11:55:44 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/04/20 09:30:57 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/04/20 11:11:22 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/solver.h"
 
-static int		put_lists(t_ps *ps)
+int		put_lists(t_ps *ps)
 {
 	t_list	*a;
 	t_list	*b;
@@ -74,18 +74,6 @@ int				init_solver(t_ps *ps, t_solver *solver, t_path **start)
 	return (1);
 }
 
-static int		put_path(t_path *p)
-{
-	ft_printf("path: ");
-	while (p && *(p->ope))
-	{
-		ft_printf("%s ", p->ope);
-		p = p->next;
-	}
-	ft_printf("\n");
-	return (1);
-}
-
 int				solver_core(t_ps *ps, t_solver *solver, int loop)
 {
 	int 	index;
@@ -93,33 +81,22 @@ int				solver_core(t_ps *ps, t_solver *solver, int loop)
 
 	if (is_sort(ps))
 	{
-		ft_printf("{grn}>>>>>>>>>>>>>>>>>SORTED<<<<<<<<<<<<<<<<<{no}\n");
 		pathcpy(solver, &(solver->sol));
 		return (1);
 	}
 	if (loop > solver->max)
-	{
-		ft_printf("max reached\n");
 		return (0);
-	}
-	put_path(solver->path);
 	index = 0;
 	i = 0x400;
 	while (index < NB_MOVE)
 	{
-		ft_printf("core => move: %s  loop: %d max: %d\n", ps->handlers[index].ope, loop, solver->max);
 		if (!(i & ps->handlers[index].oppo) && ps->handlers[index].f(&(ps->a), &(ps->b)))
 		{
-			ft_printf("move done\n");
-			put_lists(ps);
 			add_to_path(ps, solver, index);
 			if (solver_core(ps, solver, loop + 1))
 				return (1);
 			remove_from_path(ps, solver, ps->handlers[index].reverse);
-			put_lists(ps);
 		}
-		else
-			ft_printf("move skipped\n");
 		index++;
 		i >>= 1;
 	}
