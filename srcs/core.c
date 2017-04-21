@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/30 11:55:44 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/04/20 16:29:04 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/04/21 16:01:02 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int				init_solver(t_ps *ps, t_solver *solver, t_path **start)
 
 	index = 1;
 	ft_bzero(solver, sizeof(t_solver));
-	solver->max = ft_lstlen(ps->a) * NB_MOVE;
+	solver->max = ft_pow(ft_lstlen(ps->a), NB_MOVE);
 	ft_printf("solver->max: %zd\n", solver->max);
 	if (!(*start = (t_path *)ft_memalloc(sizeof(t_path))))
 		return (0);
@@ -70,21 +70,27 @@ int				init_solver(t_ps *ps, t_solver *solver, t_path **start)
 		*start = tmp;
 		index++;
 	}
+	solver->topa = (int)(*((int *)(ps->a->content)));
 	solver->last = solver->path;
 	return (1);
 }
 
 int				solver_core(t_ps *ps, t_solver *solver)
 {
+	int		a1;
+	int		a2;
 	while (!is_sort(ps))
 	{
-		if ((int)(ps->a->content) > (int)(ps->a->next->content))
+		a1 = (int)(*((int *)(ps->a->content)));
+		a2 = (int)(*((int *)(ps->a->next->content)));
+		if (a1 != solver->topa && a1 > a2)
 		{
 			ps->handlers[0].f(&(ps->a), &(ps->b));
 			add_to_path(ps, solver, 0);
 		}
-		ps->handlers[5].f(&(ps->a), &(ps->b));
-		add_to_path(ps, solver, 5);
+		ps->handlers[8].f(&(ps->a), &(ps->b));
+		add_to_path(ps, solver, 8);
+		put_lists(ps);
 	}
 	pathcpy(solver, &(solver->sol));
 	return (0);

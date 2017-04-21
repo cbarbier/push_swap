@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/29 12:05:14 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/04/20 11:12:09 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/04/21 14:01:17 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ int				add_to_path(t_ps *ps, t_solver *solver, int index)
 	char	*ope;
 
 	ope = ps->handlers[index].ope;
+	ft_printf("ope: %s\n", ope);
 	ft_memcpy(solver->last->ope, ope, 3 * sizeof(char));
 	solver->last = solver->last->next;
 	return (1);

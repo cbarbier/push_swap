@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/06 14:12:45 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/04/20 15:05:54 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/04/21 15:41:55 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ typedef struct	s_solver
 	t_path		*path;
 	t_path		*last;
 	int			max;
+	int			topa;
 }				t_solver;
 typedef struct	s_pshandler
 {
