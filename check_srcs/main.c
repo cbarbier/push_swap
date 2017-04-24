@@ -6,11 +6,22 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/29 12:05:14 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/04/19 10:11:38 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/04/24 08:45:59 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/checker.h"
+
+static int				is_in_list(t_list *a, int *data)
+{
+	while (a)
+	{
+		if (*((int *)(a->content)) == *data)
+			return (1);
+		a = a->next;
+	}
+	return (0);
+}
 
 static int				ft_myatoi(char *str, int *a)
 {
@@ -65,7 +76,8 @@ int						main(int argc, char **argv)
 	index = 1;
 	while (index < argc)
 	{
-		if (!ft_myatoi(argv[index++], &data) || !add_elem(&(ps.a), data))
+		if (!ft_myatoi(argv[index++], &data) || is_in_list(ps.a, &data)
+				|| !add_elem(&(ps.a), data))
 		{
 			ft_lstdel(&(ps.a), free_int);
 			ft_fprintf(2, "Error\n");

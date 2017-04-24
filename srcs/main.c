@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/29 12:05:14 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/04/20 15:05:37 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/04/24 15:07:36 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,19 @@ static int				ft_myatoi(char *str, int *a)
 	return (str[i] ? 0 : 1);
 }
 
-static int				add_elem(t_list **l, int data)
+static int				add_elem(t_ps *ps, t_list **l, int data)
 {
-	t_list *elm;
+	static int		count = 0;
+	t_list 			*elm;
 
+	if (!count || data > ps->maxa)
+		ps->maxa = data;
+	if (!count || data < ps->mina)
+		ps->mina = data;
 	if (!(elm = ft_lstnew((void*)&data, sizeof(int))))
 		return (0);
 	ft_lstpushback(l, elm);
+	count++;
 	return (1);
 }
 
@@ -56,8 +62,8 @@ void					free_int(void *data, size_t size)
 static void				ps_core(t_ps *ps, t_solver *solver)
 {
 	solver_core(ps, solver);
-	print_sol(solver);
-	free_path(solver->sol);
+	put_lists(ps);
+	print_path(solver->path);
 	free_path(solver->path);
 }
 
@@ -74,13 +80,17 @@ int						main(int argc, char **argv)
 	index = 1;
 	while (index < argc)
 	{
-		if (!ft_myatoi(argv[index++], &data) || !add_elem(&(ps.a), data))
+		if (!ft_myatoi(argv[index++], &data) || is_in_list(ps.a, &data)
+				|| !add_elem(&ps, &(ps.a), data))
 		{
 			ft_lstdel(&(ps.a), free_int);
 			ft_fprintf(2, "Error\n");
 			return (1);
 		}
 	}
+	ft_printf("max in stack a : %d\n", ps.maxa);
+	ft_printf("min in stack a : %d\n", ps.mina);
+	put_lists(&ps);
 	init_handlers(&ps);
 	init_solver(&ps, &solver, &(solver.path));
 	ps_core(&ps, &solver);

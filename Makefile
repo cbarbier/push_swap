@@ -6,7 +6,7 @@
 #    By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/03/04 14:32:18 by cbarbier          #+#    #+#              #
-#    Updated: 2017/04/19 09:50:05 by cbarbier         ###   ########.fr        #
+#    Updated: 2017/04/24 08:35:31 by cbarbier         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,7 @@ CFLAGS			= -Wall -Wextra -Werror
 SRCS			= srcs/main.c \
 				  srcs/core.c \
 				  srcs/tool.c \
+				  srcs/tool2.c \
 				  srcs/moves.c \
 				  srcs/move_ps.c \
 				  srcs/move_r.c \

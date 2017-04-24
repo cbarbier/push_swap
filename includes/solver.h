@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/06 14:12:45 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/04/21 15:41:55 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/04/24 14:33:56 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,9 @@ typedef struct	s_ps
 	t_pshandler	handlers[NB_MOVE];
 	t_list		*a;
 	t_list		*b;
+	int			maxa;
+	int			mina;
+	int			maxb;
 }				t_ps;
 int				ps_move_sa(t_list **a, t_list **b);
 int				ps_move_sb(t_list **a, t_list **b);
@@ -61,8 +64,10 @@ int				init_solver(t_ps *ps, t_solver *solver, t_path **start);
 int				solver_core(t_ps *ps, t_solver *solver);
 int				add_to_path(t_ps *ps, t_solver *solver, int index);
 int				remove_from_path(t_ps *ps, t_solver *solver, int i);
-int				print_sol(t_solver *solver);
-int				pathcpy(t_solver *solver, t_path **sol);
+int				print_path(t_path *path);
 int				free_path(t_path *path);
+int				is_in_list(t_list *a, int *data);
+int				put_lists(t_ps *ps);
+int				get_mina(t_ps *ps, t_list *a);
 
 #endif

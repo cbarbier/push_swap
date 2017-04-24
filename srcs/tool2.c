@@ -1,23 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   solver.c                                           :+:      :+:    :+:   */
+/*   tool2.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/31 14:53:52 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/03/31 17:56:51 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/04/24 08:59:02 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/solver.h"
 
-int				init_solver(t_ps *ps, t_solver *solver)
+int				is_in_list(t_list *a, int *data)
 {
-	ft_bzero(solver, sizeof(t_solver));
-	max = ft_lstlen(ps->a);
-	max *= max;
-	return (1);
+	while (a)
+	{
+		if (*((int *)(a->content)) == *data)
+		{
+			return (1);
+		}
+		a = a->next;
+	}
+	return (0);
 }
-
 

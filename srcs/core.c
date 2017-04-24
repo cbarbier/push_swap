@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/30 11:55:44 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/04/21 16:01:02 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/04/24 16:20:39 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,17 +19,17 @@ int		put_lists(t_ps *ps)
 
 	a = ps->a;
 	b = ps->b;
-	ft_printf("{red}%15s\t{grn}%15s\n{no}", "stack a", "stack b");
+	ft_fprintf(2, "{red}%15s\t{grn}%15s\n{no}", "stack a", "stack b");
 	while (a || b)
 	{
 		if (a)
-			ft_printf("%15d\t", *((int *)(a->content)));
+			ft_fprintf(2, "%15d\t", *((int *)(a->content)));
 		else
-			ft_printf("%15c\t", ' ');
+			ft_fprintf(2, "%15c\t", ' ');
 		if (b)
-			ft_printf("%15d\n", *((int *)(b->content)));
+			ft_fprintf(2, "%15d\n", *((int *)(b->content)));
 		else
-			ft_printf("%15c\n", ' ');
+			ft_fprintf(2, "%15c\n", ' ');
 		a = (a ? a->next : 0);
 		b = (b ? b->next : 0);
 	}
@@ -47,7 +47,7 @@ int				is_sort(t_ps *ps)
 			return (0);
 		a = a->next;
 	}
-	return (ps->b ? 0 : 1);
+	return (1);
 }
 
 int				init_solver(t_ps *ps, t_solver *solver, t_path **start)
@@ -57,8 +57,6 @@ int				init_solver(t_ps *ps, t_solver *solver, t_path **start)
 
 	index = 1;
 	ft_bzero(solver, sizeof(t_solver));
-	solver->max = ft_pow(ft_lstlen(ps->a), NB_MOVE);
-	ft_printf("solver->max: %zd\n", solver->max);
 	if (!(*start = (t_path *)ft_memalloc(sizeof(t_path))))
 		return (0);
 	while (index < solver->max)
@@ -79,19 +77,34 @@ int				solver_core(t_ps *ps, t_solver *solver)
 {
 	int		a1;
 	int		a2;
+
 	while (!is_sort(ps))
 	{
 		a1 = (int)(*((int *)(ps->a->content)));
 		a2 = (int)(*((int *)(ps->a->next->content)));
-		if (a1 != solver->topa && a1 > a2)
+		if (a1 != ps->maxa && a1 > a2)
 		{
 			ps->handlers[0].f(&(ps->a), &(ps->b));
 			add_to_path(ps, solver, 0);
 		}
-		ps->handlers[8].f(&(ps->a), &(ps->b));
-		add_to_path(ps, solver, 8);
-		put_lists(ps);
+		a1 = (int)(*((int *)(ps->a->content)));
+		a2 = (int)(*((int *)(ps->a->next->content)));
+		if (a1 == ps->mina)
+		{
+			ps->handlers[4].f(&(ps->a), &(ps->b));
+			add_to_path(ps, solver, 4);
+			ps->mina = get_mina(ps, ps->a);
+		}
+		else
+		{
+			ps->handlers[5].f(&(ps->a), &(ps->b));
+			add_to_path(ps, solver, 5);
+		}
 	}
-	pathcpy(solver, &(solver->sol));
+	while (ps->b)
+	{
+		ps->handlers[3].f(&(ps->a), &(ps->b));
+		add_to_path(ps, solver, 3);
+	}
 	return (0);
 }
