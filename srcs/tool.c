@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/29 12:05:14 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/04/19 16:10:41 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/04/24 17:44:03 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int				remove_from_path(t_ps *ps, t_solver *solver, int index_reverse)
 	ft_bzero(solver->last->ope, 3 * sizeof(char));
 	solver->last = solver->last->prec;
 	ps->handlers[index_reverse].f(&(ps->a), &(ps->b));
-	ft_printf("reverse last move with : %s\n", ps->handlers[index_reverse].ope); 
+//	ft_fprintf(2, "reverse last move with : %s\n", ps->handlers[index_reverse].ope); 
 	return (1);
 }
 
@@ -38,12 +38,12 @@ int				print_sol(t_solver *solver)
 	sol = solver->sol;
 	if (!sol)
 	{
-		ft_printf("no sol found :(\n");
+		ft_fprintf(2, "no sol found :(\n");
 		return (0);
 	}
 	while (sol && *(sol->ope))
 	{
-		ft_printf("%s\n", sol->ope);
+		ft_fprintf(1, "%s\n", sol->ope);
 		sol = sol->next;
 	}
 	return (1);
