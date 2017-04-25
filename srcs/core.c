@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/30 11:55:44 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/04/25 11:31:11 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/04/25 18:39:01 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,32 +75,34 @@ int				init_solver(t_ps *ps, t_solver *solver, t_path **start)
 
 int				solver_core(t_ps *ps, t_solver *solver)
 {
-	int		a1;
-	int		a2;
+	int		dir;
+	int		ope;
 
 	while (!is_sort(ps))
 	{
-		a1 = (int)(*((int *)(ps->a->content)));
-		a2 = (int)(*((int *)(ps->a->next->content)));
-		if (a1 != ps->maxa && a1 > a2)
+		dir = dir_to_min(ps, solver);
+		put_lists(ps);
+		ps->mina = get_mina(ps, ps->a);
+		search_best_move(ps, solver);
+		ft_printf("best move : %d\n", ps->mv_to_do.val);
+		ope = ps->mv_to_do.ope_a;
+		while (ps->mv_to_do.nb_a--)
 		{
-			ps->handlers[0].f(&(ps->a), &(ps->b));
-			add_to_path(ps, solver, 0);
+			ps->handlers[ope].f(&(ps->a), &(ps->b));
+			add_to_path(ps, solver, ope);
 		}
-		a1 = (int)(*((int *)(ps->a->content)));
-		a2 = (int)(*((int *)(ps->a->next->content)));
-		if (a1 == ps->mina)
+		ps->mina = get_mina(ps, ps->a);
+		ps->handlers[4].f(&(ps->a), &(ps->b));
+		add_to_path(ps, solver, 4);
+		ope = ps->mv_to_do.ope_b;
+		while (ps->mv_to_do.nb_b--)
 		{
-			ps->handlers[4].f(&(ps->a), &(ps->b));
-			add_to_path(ps, solver, 4);
-			ps->mina = get_mina(ps, ps->a);
-		}
-		else
-		{
-			ps->handlers[5].f(&(ps->a), &(ps->b));
-			add_to_path(ps, solver, 5);
+			ps->handlers[ope].f(&(ps->a), &(ps->b));
+			add_to_path(ps, solver, ope);
 		}
 	}
+	ft_fprintf(2, "end of sorting , a is sorted\n");
+	put_lists(ps);
 	while (ps->b)
 	{
 		ps->handlers[3].f(&(ps->a), &(ps->b));

@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/06 14:12:45 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/04/24 14:33:56 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/04/25 17:57:10 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,15 @@
 # define SOLVER_H
 # include "../libft/includes/libft.h"
 # define NB_MOVE	11
-
+typedef struct	s_mvto
+{
+	int			nb_a;
+	int			ope_a;
+	int			nb_b;
+	int			ope_b;
+	int			val;
+	int			tot;
+}				t_mvto;
 typedef struct	s_path
 {
 	char			ope[3];
@@ -43,7 +51,9 @@ typedef struct	s_ps
 	t_list		*b;
 	int			maxa;
 	int			mina;
+	int			minb;
 	int			maxb;
+	t_mvto		mv_to_do;
 }				t_ps;
 int				ps_move_sa(t_list **a, t_list **b);
 int				ps_move_sb(t_list **a, t_list **b);
@@ -69,5 +79,7 @@ int				free_path(t_path *path);
 int				is_in_list(t_list *a, int *data);
 int				put_lists(t_ps *ps);
 int				get_mina(t_ps *ps, t_list *a);
+int				dir_to_min(t_ps *ps, t_solver *solver);
+int				search_best_move(t_ps *ps, t_solver *solver);
 
 #endif
