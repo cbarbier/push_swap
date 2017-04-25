@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/29 12:05:14 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/04/24 15:07:36 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/04/25 11:39:38 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static int				ft_myatoi(char *str, int *a)
 	while (str[i] >= '0' && str[i] <= '9')
 	{
 		res = 10 * res + str[i] - '0';
-		if (res > 2147483647 || (sign < 0 && res > 2147483648))
+		if ((sign > 0 && res > 2147483647) || (sign < 0 && res > 2147483648))
 			return (0);
 		i++;
 	}
