@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/06 14:12:45 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/04/25 17:57:10 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/04/26 20:14:15 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,8 @@ typedef struct	s_ps
 	int			mina;
 	int			minb;
 	int			maxb;
-	t_mvto		mv_to_do;
+	int			lastb;
+	t_mvto		mv_to_do[1];
 }				t_ps;
 int				ps_move_sa(t_list **a, t_list **b);
 int				ps_move_sb(t_list **a, t_list **b);
@@ -71,15 +72,17 @@ int				call_handler(t_ps *ps, char *ope);
 void			free_int(void *data, size_t size);
 int				is_sort(t_ps *ps);
 int				init_solver(t_ps *ps, t_solver *solver, t_path **start);
-int				solver_core(t_ps *ps, t_solver *solver);
-int				add_to_path(t_ps *ps, t_solver *solver, int index);
+int				my_algo(t_ps *ps, t_solver *solver);
+int				apply_move(t_ps *ps, t_solver *solver, int index);
+int				apply_mvto(t_ps *ps, t_solver *solver);
 int				remove_from_path(t_ps *ps, t_solver *solver, int i);
 int				print_path(t_path *path);
 int				free_path(t_path *path);
 int				is_in_list(t_list *a, int *data);
 int				put_lists(t_ps *ps);
-int				get_mina(t_ps *ps, t_list *a);
-int				dir_to_min(t_ps *ps, t_solver *solver);
+int				get_sides(t_list *l, int opt);
 int				search_best_move(t_ps *ps, t_solver *solver);
+int				merge_list(t_ps *ps, t_solver *solver);
+int				get_last(t_list *l);
 
 #endif

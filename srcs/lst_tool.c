@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/31 14:53:52 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/04/25 13:10:55 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/04/26 18:37:12 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,22 +25,34 @@ int				is_in_list(t_list *a, int *data)
 	return (0);
 }
 
-int				dir_to_min(t_ps *ps, t_solver *solver)
+int				get_sides(t_list *l, int opt)
 {
-	t_list		*a;
+	int			val;
+	int			tmp;	
 	int			index;
-	int			ln;
 
-	(void)solver;
-	a = ps->a;
-	ln = ft_lstlen(a);
 	index = 0;
-	while (a && index <= ln / 2)
+	val = 0;
+	while (l)
 	{
-		if (*((int *)(a->content)) == ps->mina)
-			return (5);
-		a = a->next;
+		if (!index)
+			val = *((int *)(l->content));
+		if ((!opt && (tmp = *((int *)(l->content))) < val)
+				|| (opt && (tmp = *((int *)(l->content))) > val)) 
+			val = tmp; 
 		index++;
+		l = l->next;
 	}
-	return (8);
+	return (val);
+}
+
+int				get_last(t_list *l)
+{
+	if (!l)
+		return (0);
+	while(l->next)
+	{
+		l = l->next;
+	}
+	return (*((int *)(l->content)));
 }

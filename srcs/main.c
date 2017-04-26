@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/29 12:05:14 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/04/25 11:39:38 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/04/26 20:59:37 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void					free_int(void *data, size_t size)
 
 static void				ps_core(t_ps *ps, t_solver *solver)
 {
-	solver_core(ps, solver);
+	my_algo(ps, solver);
 	put_lists(ps);
 	print_path(solver->path);
 	free_path(solver->path);

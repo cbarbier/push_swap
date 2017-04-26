@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/30 11:55:44 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/04/25 18:39:01 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/04/26 20:14:00 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,40 +73,26 @@ int				init_solver(t_ps *ps, t_solver *solver, t_path **start)
 	return (1);
 }
 
-int				solver_core(t_ps *ps, t_solver *solver)
+int				my_algo(t_ps *ps, t_solver *solver)
 {
-	int		dir;
-	int		ope;
-
-	while (!is_sort(ps))
+	if (*((int *)(ps->a->content)) == ps->maxa) 
+		apply_move(ps, solver, 5);
+	apply_move(ps, solver, 4);
+	if (*((int *)(ps->a->content)) == ps->maxa) 
+		apply_move(ps, solver, 5);
+	apply_move(ps, solver, 4);
+	if (*((int *)(ps->b->content)) < *((int *)(ps->b->next->content)))
+		apply_move(ps, solver, 0);
+	while (ft_lstlen(ps->a))
 	{
-		dir = dir_to_min(ps, solver);
 		put_lists(ps);
-		ps->mina = get_mina(ps, ps->a);
 		search_best_move(ps, solver);
-		ft_printf("best move : %d\n", ps->mv_to_do.val);
-		ope = ps->mv_to_do.ope_a;
-		while (ps->mv_to_do.nb_a--)
-		{
-			ps->handlers[ope].f(&(ps->a), &(ps->b));
-			add_to_path(ps, solver, ope);
-		}
-		ps->mina = get_mina(ps, ps->a);
-		ps->handlers[4].f(&(ps->a), &(ps->b));
-		add_to_path(ps, solver, 4);
-		ope = ps->mv_to_do.ope_b;
-		while (ps->mv_to_do.nb_b--)
-		{
-			ps->handlers[ope].f(&(ps->a), &(ps->b));
-			add_to_path(ps, solver, ope);
-		}
+		ft_printf("best move : %d\n", ps->mv_to_do->val);
+		apply_mvto(ps, solver);
+		apply_move(ps, solver, 4);
 	}
 	ft_fprintf(2, "end of sorting , a is sorted\n");
 	put_lists(ps);
-	while (ps->b)
-	{
-		ps->handlers[3].f(&(ps->a), &(ps->b));
-		add_to_path(ps, solver, 3);
-	}
+	merge_list(ps, solver);
 	return (0);
 }
