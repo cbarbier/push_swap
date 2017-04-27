@@ -6,35 +6,12 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/30 11:55:44 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/04/27 09:42:29 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/04/27 15:00:08 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/solver.h"
 
-int				put_lists(t_ps *ps)
-{
-	t_list	*a;
-	t_list	*b;
-
-	a = ps->a;
-	b = ps->b;
-	ft_fprintf(2, "{red}%15s\t{grn}%15s\n{no}", "stack a", "stack b");
-	while (a || b)
-	{
-		if (a)
-			ft_fprintf(2, "%15d\t", *((int *)(a->content)));
-		else
-			ft_fprintf(2, "%15c\t", ' ');
-		if (b)
-			ft_fprintf(2, "%15d\n", *((int *)(b->content)));
-		else
-			ft_fprintf(2, "%15c\n", ' ');
-		a = (a ? a->next : 0);
-		b = (b ? b->next : 0);
-	}
-	return (1);
-}
 
 int				is_sort(t_ps *ps)
 {

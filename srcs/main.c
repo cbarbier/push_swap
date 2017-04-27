@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/29 12:05:14 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/04/27 09:40:48 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/04/27 12:25:45 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ int						main(int argc, char **argv)
 	if (argc == 1)
 		return (1);
 	ft_bzero(&ps, sizeof(t_ps));
-	index = 1;
+	index = set_opt(&ps, argv, argc);
 	while (index < argc)
 	{
 		if (!ft_myatoi(argv[index++], &data) || is_in_list(ps.a, &data)

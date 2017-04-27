@@ -6,7 +6,7 @@
 #    By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/03/04 14:32:18 by cbarbier          #+#    #+#              #
-#    Updated: 2017/04/27 08:16:15 by cbarbier         ###   ########.fr        #
+#    Updated: 2017/04/27 14:48:37 by cbarbier         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,7 @@ SRCS			= srcs/main.c \
 				  srcs/lst_tool.c \
 				  srcs/best_move.c \
 				  srcs/merge_list.c \
+				  srcs/ps_print.c \
 				  srcs/moves.c \
 				  srcs/move_ps.c \
 				  srcs/move_r.c \

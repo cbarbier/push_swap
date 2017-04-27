@@ -6,11 +6,36 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/29 12:05:14 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/04/27 08:49:37 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/04/27 14:41:56 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/solver.h"
+
+int				set_opt(t_ps *ps, char **argv, int argc)
+{
+	int		index;
+	int		index2;
+
+	index = 1;
+	while (index < argc && ft_strlen(argv[index]) >= 2
+			&& argv[index][0] == '-')
+	{
+		index2 = 1;
+		while (argv[index][index2])
+		{
+			if (argv[index][index2] == 'v')
+				ps->opt_v = 1;
+			else if (argv[index][index2] == 'c')
+				ps->opt_c = 1;
+			else
+				return (argv[index][index2] == '-' ? index + 1 : index);
+			index2++;
+		}
+		index++;
+	}
+	return (index);
+}
 
 int				apply_move(t_ps *ps, t_solver *solver, int index)
 {
@@ -32,6 +57,8 @@ int				apply_move(t_ps *ps, t_solver *solver, int index)
 		solver->last = solver->last->next;
 	}
 	ps->handlers[index].f(&(ps->a), &(ps->b));
+	if (ps->opt_v)
+		ps_print(ps, ope);
 	return (1);
 }
 

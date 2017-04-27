@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/06 14:12:45 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/04/27 08:23:15 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/04/27 15:24:46 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ typedef struct	s_pshandler
 }				t_pshandler;
 typedef struct	s_ps
 {
+	char		opt_v;
+	char		opt_c;
 	t_pshandler	handlers[NB_MOVE];
 	t_list		*a;
 	t_list		*b;
@@ -85,10 +87,12 @@ int				remove_from_sol(t_ps *ps, t_solver *solver, int i);
 int				print_path(t_path *path);
 int				free_path(t_path *path);
 int				is_in_list(t_list *a, int *data);
-int				put_lists(t_ps *ps);
+int				put_lists(t_ps *ps, char *ope);
 int				get_sides(t_list *l, int opt);
 int				search_best_move(t_ps *ps, t_solver *solver);
 int				merge_list(t_ps *ps, t_solver *solver);
 int				get_last(t_list *l);
+int				set_opt(t_ps *ps, char **argv, int argc);
+int				ps_print(t_ps *ps, char *ope);
 
 #endif
