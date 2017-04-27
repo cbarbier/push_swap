@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/30 11:55:44 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/04/27 07:57:24 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/04/27 09:42:29 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,29 +50,6 @@ int				is_sort(t_ps *ps)
 	return (1);
 }
 
-int				init_solver(t_ps *ps, t_solver *solver, t_path **start)
-{
-	int		index;
-	t_path	*tmp;
-
-	index = 1;
-	ft_bzero(solver, sizeof(t_solver));
-	if (!(*start = (t_path *)ft_memalloc(sizeof(t_path))))
-		return (0);
-	while (index < solver->max)
-	{
-		if (!(tmp = (t_path *)ft_memalloc(sizeof(t_path))))
-			return (0);
-		tmp->next = *start;
-		(*start)->prec = tmp;
-		*start = tmp;
-		index++;
-	}
-	solver->topa = (int)(*((int *)(ps->a->content)));
-	solver->last = solver->path;
-	return (1);
-}
-
 int				my_algo(t_ps *ps, t_solver *solver)
 {
 	if (*((int *)(ps->a->content)) == ps->maxa)
@@ -85,12 +62,10 @@ int				my_algo(t_ps *ps, t_solver *solver)
 		apply_move(ps, solver, 0);
 	while (ft_lstlen(ps->a))
 	{
-		put_lists(ps);
 		search_best_move(ps, solver);
 		apply_mvto(ps, solver);
 		apply_move(ps, solver, 4);
 	}
-	put_lists(ps);
 	merge_list(ps, solver);
 	return (0);
 }

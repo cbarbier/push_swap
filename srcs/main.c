@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/29 12:05:14 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/04/27 07:56:14 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/04/27 09:40:48 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,14 @@ void					free_int(void *data, size_t size)
 
 static void				ps_core(t_ps *ps, t_solver *solver)
 {
-	my_algo(ps, solver);
-	put_lists(ps);
+	if (ft_lstlen(ps->a) <= 5)
+	{
+		init_bf(ps, solver, &(solver->sol));
+		while (!brute_force(ps, solver, 0))
+			++solver->max;
+	}
+	else
+		my_algo(ps, solver);
 	print_path(solver->path);
 	free_path(solver->path);
 }
@@ -88,9 +94,7 @@ int						main(int argc, char **argv)
 			return (1);
 		}
 	}
-	put_lists(&ps);
 	init_handlers(&ps);
-	init_solver(&ps, &solver, &(solver.path));
 	ps_core(&ps, &solver);
 	return (0);
 }

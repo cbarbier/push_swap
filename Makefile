@@ -6,7 +6,7 @@
 #    By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/03/04 14:32:18 by cbarbier          #+#    #+#              #
-#    Updated: 2017/04/26 12:19:26 by cbarbier         ###   ########.fr        #
+#    Updated: 2017/04/27 08:16:15 by cbarbier         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,9 @@ CC				= gcc
 CFLAGS			= -Wall -Wextra -Werror
 SRCS			= srcs/main.c \
 				  srcs/core.c \
+				  srcs/brute_force.c \
 				  srcs/tool.c \
+				  srcs/bf_tool.c \
 				  srcs/lst_tool.c \
 				  srcs/best_move.c \
 				  srcs/merge_list.c \

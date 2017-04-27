@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/29 12:05:14 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/04/26 20:56:37 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/04/27 08:49:37 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,14 @@ int				apply_move(t_ps *ps, t_solver *solver, int index)
 	ft_memcpy(elm->ope, ope, 3 * sizeof(char));
 	if (!solver->path)
 	{
-		solver->last = elm;
-		solver->path = solver->path;
+		solver->path = elm;
+		solver->last = solver->path;
 	}
 	else
+	{
 		solver->last->next = elm;
-	solver->last = solver->last->next;
+		solver->last = solver->last->next;
+	}
 	ps->handlers[index].f(&(ps->a), &(ps->b));
 	return (1);
 }
