@@ -6,13 +6,13 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/30 11:55:44 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/04/26 20:14:00 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/04/27 07:57:24 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/solver.h"
 
-int		put_lists(t_ps *ps)
+int				put_lists(t_ps *ps)
 {
 	t_list	*a;
 	t_list	*b;
@@ -75,10 +75,10 @@ int				init_solver(t_ps *ps, t_solver *solver, t_path **start)
 
 int				my_algo(t_ps *ps, t_solver *solver)
 {
-	if (*((int *)(ps->a->content)) == ps->maxa) 
+	if (*((int *)(ps->a->content)) == ps->maxa)
 		apply_move(ps, solver, 5);
 	apply_move(ps, solver, 4);
-	if (*((int *)(ps->a->content)) == ps->maxa) 
+	if (*((int *)(ps->a->content)) == ps->maxa)
 		apply_move(ps, solver, 5);
 	apply_move(ps, solver, 4);
 	if (*((int *)(ps->b->content)) < *((int *)(ps->b->next->content)))
@@ -87,11 +87,9 @@ int				my_algo(t_ps *ps, t_solver *solver)
 	{
 		put_lists(ps);
 		search_best_move(ps, solver);
-		ft_printf("best move : %d\n", ps->mv_to_do->val);
 		apply_mvto(ps, solver);
 		apply_move(ps, solver, 4);
 	}
-	ft_fprintf(2, "end of sorting , a is sorted\n");
 	put_lists(ps);
 	merge_list(ps, solver);
 	return (0);

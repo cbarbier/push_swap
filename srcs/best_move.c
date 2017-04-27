@@ -6,13 +6,13 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/25 16:25:08 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/04/26 20:50:08 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/04/27 07:54:45 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/solver.h"
 
-static int		calc_move_helper(t_mvto *tmp, t_ps *ps,  t_list *b, int lnb)
+static int		calc_move_helper(t_mvto *tmp, t_ps *ps, t_list *b, int lnb)
 {
 	int		index;
 	int		bf;
@@ -24,10 +24,9 @@ static int		calc_move_helper(t_mvto *tmp, t_ps *ps,  t_list *b, int lnb)
 	{
 		cr = *((int *)(b->content));
 		if (cr > bf && (tmp->val < ps->minb || tmp->val > ps->maxb))
-			break;	
+			break ;
 		else if (tmp->val < bf && tmp->val > cr)
-			break;
-		ft_fprintf(2, "calc b move: index: %d val: %d < content: %d\n", index, tmp->val, cr); 
+			break ;
 		index++;
 		bf = cr;
 		b = b->next;
@@ -48,10 +47,6 @@ static int		calc_move(t_ps *ps, t_mvto *tmp, int index, int *l)
 	if (tmp->ope_a == tmp->ope_b - 1)
 		opti = (tmp->nb_a < tmp->nb_b ? tmp->nb_a : tmp->nb_b);
 	tmp->tot = tmp->nb_a + tmp->nb_b - opti + 1;
-	ft_fprintf(2, "tmp->val: %d\n", ps->mv_to_do->val);
-	ft_fprintf(2, "tmp->nb_a: %d ope_a: %d\n", tmp->nb_a, tmp->ope_a);
-	ft_fprintf(2, "tmp->nb_b: %d ope_b: %d\n", tmp->nb_b, tmp->ope_b);
-	ft_fprintf(2, "tmp->tot: %d\n", tmp->tot);
 	if (!index || tmp->tot < ps->mv_to_do->tot)
 		return (1);
 	return (0);
@@ -72,7 +67,6 @@ int				search_best_move(t_ps *ps, t_solver *solver)
 	ps->lastb = get_last(ps->b);
 	ps->minb = get_sides(ps->b, 0);
 	ps->maxb = get_sides(ps->b, 1);
-	ft_fprintf(2, "last b: %d\n", ps->lastb);
 	while (a)
 	{
 		ft_bzero(&tmp, sizeof(t_mvto));

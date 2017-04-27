@@ -6,13 +6,13 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/26 11:12:26 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/04/26 20:59:17 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/04/27 07:57:50 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/solver.h"
 
-int		rotate_a(t_ps *ps, int val, int option)
+int				rotate_a(t_ps *ps, int val, int option)
 {
 	t_list	*a;
 	int		index;
@@ -22,7 +22,7 @@ int		rotate_a(t_ps *ps, int val, int option)
 	ln = ft_lstlen(a);
 	index = 0;
 	while (a && ((option && *((int *)(a->content)) != val)
-				|| (!option &&  *((int *)(a->content)) < val)))
+				|| (!option && *((int *)(a->content)) < val)))
 	{
 		index++;
 		a = a->next;
@@ -39,14 +39,13 @@ static int		rotate_b(t_ps *ps)
 	int		ln;
 
 	b = ps->b;
-	ps->minb = get_sides(b, 1);
-	ft_fprintf(2, "max b: %d\n\n", ps->minb);
+	ps->maxb = get_sides(b, 1);
 	ln = ft_lstlen(b);
 	index = 0;
 	while (b)
 	{
-		if (*((int *)(b->content)) == ps->minb)
-			break;
+		if (*((int *)(b->content)) == ps->maxb)
+			break ;
 		index++;
 		b = b->next;
 	}
@@ -60,10 +59,7 @@ int				merge_list(t_ps *ps, t_solver *solver)
 	int		index;
 
 	rotate_b(ps);
-	ft_fprintf(2, "init merge nb_a: %d ope_a: %d\n", ps->mv_to_do->nb_a, ps->mv_to_do->ope_a);
-	ft_fprintf(2, "init merge nb_b: %d ope_b: %d\n", ps->mv_to_do->nb_b, ps->mv_to_do->ope_b);
 	apply_mvto(ps, solver);
-	put_lists(ps);
 	index = 0;
 	while (ps->b)
 	{

@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/31 14:53:52 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/04/26 18:37:12 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/04/27 07:53:25 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int				is_in_list(t_list *a, int *data)
 int				get_sides(t_list *l, int opt)
 {
 	int			val;
-	int			tmp;	
+	int			tmp;
 	int			index;
 
 	index = 0;
@@ -38,8 +38,8 @@ int				get_sides(t_list *l, int opt)
 		if (!index)
 			val = *((int *)(l->content));
 		if ((!opt && (tmp = *((int *)(l->content))) < val)
-				|| (opt && (tmp = *((int *)(l->content))) > val)) 
-			val = tmp; 
+				|| (opt && (tmp = *((int *)(l->content))) > val))
+			val = tmp;
 		index++;
 		l = l->next;
 	}
@@ -50,7 +50,7 @@ int				get_last(t_list *l)
 {
 	if (!l)
 		return (0);
-	while(l->next)
+	while (l->next)
 	{
 		l = l->next;
 	}

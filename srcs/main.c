@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/29 12:05:14 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/04/26 20:59:37 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/04/27 07:56:14 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static int				ft_myatoi(char *str, int *a)
 static int				add_elem(t_ps *ps, t_list **l, int data)
 {
 	static int		count = 0;
-	t_list 			*elm;
+	t_list			*elm;
 
 	if (!count || data > ps->maxa)
 		ps->maxa = data;
@@ -88,8 +88,6 @@ int						main(int argc, char **argv)
 			return (1);
 		}
 	}
-	ft_printf("max in stack a : %d\n", ps.maxa);
-	ft_printf("min in stack a : %d\n", ps.mina);
 	put_lists(&ps);
 	init_handlers(&ps);
 	init_solver(&ps, &solver, &(solver.path));

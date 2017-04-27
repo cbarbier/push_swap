@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/06 14:12:45 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/04/26 20:14:15 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/04/27 07:58:17 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define SOLVER_H
 # include "../libft/includes/libft.h"
 # define NB_MOVE	11
+
 typedef struct	s_mvto
 {
 	int			nb_a;
