@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/06 14:12:45 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/04/27 15:24:46 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/04/27 18:23:27 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ typedef struct	s_pshandler
 }				t_pshandler;
 typedef struct	s_ps
 {
+	int			count;
 	char		opt_v;
 	char		opt_c;
 	t_pshandler	handlers[NB_MOVE];

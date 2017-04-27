@@ -6,12 +6,11 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/30 11:55:44 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/04/27 15:00:08 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/04/27 16:37:05 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/solver.h"
-
 
 int				is_sort(t_ps *ps)
 {

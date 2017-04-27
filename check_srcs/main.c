@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/29 12:05:14 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/04/25 11:40:05 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/04/27 19:12:22 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,13 +84,10 @@ int						main(int argc, char **argv)
 			return (0);
 		}
 	}
-	if (!checker_core(&ps))
-		return (1);
-	if (is_sort(&ps))
-		ft_printf("OK\n");
-	else
-		ft_printf("KO\n");
+	checker_core(&ps);
+	ft_printf((is_sort(&ps) ? "OK\n" : "KO\n"));
 	ft_lstdel(&(ps.a), free_int);
 	ft_lstdel(&(ps.b), free_int);
+	while (1);
 	return (0);
 }

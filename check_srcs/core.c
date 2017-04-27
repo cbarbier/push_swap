@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/30 11:55:44 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/03/30 21:07:42 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/04/27 17:26:51 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,8 @@ int				checker_core(t_ps *ps)
 	char		*line;
 
 	init_handlers(ps);
-	put_lists(ps);
+	if (DEBUG)
+		put_lists(ps);
 	while (get_next_line(0, &line) > 0)
 	{
 		if (!call_handler(ps, line))
@@ -66,7 +67,8 @@ int				checker_core(t_ps *ps)
 			ft_strdel(&line);
 			return (0);
 		}
-		put_lists(ps);
+		if (DEBUG)
+			put_lists(ps);
 		ft_strdel(&line);
 	}
 	return (1);

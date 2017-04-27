@@ -6,11 +6,26 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/27 14:42:04 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/04/27 15:59:16 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/04/27 18:52:44 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/solver.h"
+
+static int		put_header(t_ps *ps, char *ope)
+{
+	if (ps->opt_c)
+	{
+		ft_printf("{red}%13s{yel}%7s{grn}%12s\n", "stack a", ope, "stack b");
+		ft_printf("\e[0;36m %s\n", "_____________________________________");
+	}
+	else
+	{
+		ft_printf("%13s%7s%12s\n", "stack a", ope, "stack b");
+		ft_printf(" %s\n", "_____________________________________");
+	}
+	return (1);
+}
 
 int				put_lists(t_ps *ps, char *ope)
 {
@@ -19,8 +34,7 @@ int				put_lists(t_ps *ps, char *ope)
 
 	a = ps->a;
 	b = ps->b;
-	ft_printf("{red}%13s{yel}%7s{grn}%12s\n{no}", "stack a", ope, "stack b");
-	ft_printf("\e[0;36m %s\n", "_____________________________________");
+	put_header(ps, ope);
 	while (a || b)
 	{
 		if (a)
@@ -44,6 +58,8 @@ int				ps_print(t_ps *ps, char *ope)
 	int		index;
 	char	up[3];
 
+	if (!(ps->opt_c || ps->opt_v))
+		return (0);
 	index = -1;
 	d = 50;
 	usleep(100000);

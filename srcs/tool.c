@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/29 12:05:14 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/04/27 14:41:56 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/04/27 18:22:13 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,7 @@ int				apply_move(t_ps *ps, t_solver *solver, int index)
 		solver->last = solver->last->next;
 	}
 	ps->handlers[index].f(&(ps->a), &(ps->b));
-	if (ps->opt_v)
-		ps_print(ps, ope);
+	ps_print(ps, ope);
 	return (1);
 }
 

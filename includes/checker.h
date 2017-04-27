@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/06 14:12:45 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/04/19 18:30:25 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/04/27 17:25:37 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define CHECKER_H
 # include "../libft/includes/libft.h"
 # define NB_MOVE	11
+# define DEBUG		1
 
 typedef struct	s_pshandler
 {
