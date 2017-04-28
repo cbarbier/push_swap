@@ -24,7 +24,6 @@ int		ft_lstdelif(t_list **al, void (*del)(void*, size_t), int (*f)(void *))
 	tmp = 0;
 	while (l)
 	{
-		next = -1;
 		if (f(l->content))
 		{
 			next = l->next;
@@ -36,7 +35,7 @@ int		ft_lstdelif(t_list **al, void (*del)(void*, size_t), int (*f)(void *))
 		}
 		else
 			tmp = l;
-		l = (next >= 0 ? next : l->next);
+		l = (tmp ? tmp->next : next);
 	}
 	return (1);
 }
