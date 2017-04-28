@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/30 11:55:44 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/04/27 17:26:51 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/04/28 15:21:02 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,5 +71,6 @@ int				checker_core(t_ps *ps)
 			put_lists(ps);
 		ft_strdel(&line);
 	}
+	ft_strdel(&line);
 	return (1);
 }
