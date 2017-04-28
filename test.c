@@ -6,22 +6,11 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/29 12:05:14 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/04/28 16:16:55 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/04/28 18:56:41 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/checker.h"
-
-static int				is_in_list(t_list *a, int *data)
-{
-	while (a)
-	{
-		if (*((int *)(a->content)) == *data)
-			return (1);
-		a = a->next;
-	}
-	return (0);
-}
+#include "libft/includes/libft.h"
 
 static int				ft_myatoi(char *str, int *a)
 {
@@ -32,9 +21,6 @@ static int				ft_myatoi(char *str, int *a)
 	res = 0;
 	i = 0;
 	sign = 1;
-	while (str[i] == ' ' || str[i] == '\n' || str[i] == '\t'
-			|| str[i] == '\v' || str[i] == '\r' || str[i] == '\f')
-		i++;
 	if (str[i] == '-' || str[i] == '+')
 		sign = (str[i++] == '-' ? -1 : 1);
 	while (str[i] >= '0' && str[i] <= '9')
@@ -50,11 +36,13 @@ static int				ft_myatoi(char *str, int *a)
 
 static int				add_elem(t_list **l, int data)
 {
-	t_list *elm;
+	static int		count = 0;
+	t_list			*elm;
 
 	if (!(elm = ft_lstnew((void*)&data, sizeof(int))))
 		return (0);
 	ft_lstpushback(l, elm);
+	count++;
 	return (1);
 }
 
@@ -64,29 +52,40 @@ void					free_int(void *data, size_t size)
 	free(data);
 }
 
+static int				fct(void *content)
+{
+	int		i;
+
+	i = *((int *)(content));
+	return (i % 2 ? 1 : 0);
+}
+
 int						main(int argc, char **argv)
 {
-	t_ps		ps;
+	t_list		*a;
 	int			data;
 	int			index;
 
 	if (argc == 1)
 		return (1);
-	ft_bzero(&ps, sizeof(t_ps));
 	index = 1;
+	a = 0;
 	while (index < argc)
 	{
-		if (!ft_myatoi(argv[index++], &data) || is_in_list(ps.a, &data)
-				|| !add_elem(&(ps.a), data))
+		if (!ft_myatoi(argv[index++], &data) || !add_elem(&a, data))
 		{
-			ft_lstdel(&(ps.a), free_int);
+			ft_lstdel(&a, free_int);
 			ft_fprintf(2, "Error\n");
-			return (0);
+			return (1);
 		}
 	}
-	checker_core(&ps);
-	ft_printf((is_sort(&ps) ? "OK\n" : "KO\n"));
-	ft_lstdel(&(ps.a), free_int);
-	ft_lstdel(&(ps.b), free_int);
+	ft_lstdelif(&a, free_int, fct); 
+	ft_printf("list a :\n");
+	while (a)
+	{
+		ft_printf("%d\n", *((int *)(a->content)));
+		a = a->next;
+	}
+	ft_lstdel(&a, free_int);
 	return (0);
 }

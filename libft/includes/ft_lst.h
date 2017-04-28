@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/05 13:50:51 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/04/28 14:38:31 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/04/28 17:37:48 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,7 @@ void			ft_lstshift(t_list **alst, void	(*del)(void **));
 size_t			ft_lstlen(t_list *lst);
 void			ft_lstsort(t_list *lst, int	(*fcmp)(t_list *a, t_list *b));
 void			ft_lstreverse(t_list **alst);
+int				ft_lstdelif(t_list **al, void (*del)(void*, size_t),
+		int (*f)(void *));
 
 #endif

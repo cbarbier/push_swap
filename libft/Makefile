@@ -86,6 +86,7 @@ SRC  = ft_memset.c \
 	   ft_lstlen.c \
 	   ft_lstsort.c \
 	   ft_lstreverse.c \
+	   ft_lstdelif.c \
 	   ft_nblen.c \
 	   ft_nblenbase.c \
 	   ft_sqrt.c \

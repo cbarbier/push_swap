@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/29 12:05:14 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/04/27 17:50:41 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/04/28 16:56:28 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,5 +93,7 @@ int						main(int argc, char **argv)
 	}
 	init_handlers(&ps);
 	ps_core(&ps, &solver);
+	ft_lstdel(&(ps.a), free_int);
+	ft_lstdel(&(ps.b), free_int);
 	return (0);
 }

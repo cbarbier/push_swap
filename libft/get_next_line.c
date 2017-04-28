@@ -6,7 +6,7 @@
 /*   By: cbarbier <cbarbier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/22 19:55:34 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/04/28 15:10:31 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/04/28 16:59:23 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ static void			free_fbuffer(void *fbuffer, size_t size)
 	tmp = (t_fbuffer *)fbuffer;
 	(void)size;
 	ft_strdel(&(tmp->data));
+	free(tmp);
 }
 
 int					get_next_line(const int fd, char **line)
