@@ -19,7 +19,6 @@ int				add_to_sol(t_ps *ps, t_solver *solver, int index)
 	ope = ps->handlers[index].ope;
 	ft_memcpy(solver->last->ope, ope, 3 * sizeof(char));
 	solver->last = solver->last->next;
-	ps_print(ps, ope);
 	return (1);
 }
 

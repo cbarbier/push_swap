@@ -23,7 +23,6 @@ SRCS			= srcs/main.c \
 				  srcs/lst_tool.c \
 				  srcs/best_move.c \
 				  srcs/merge_list.c \
-				  srcs/ps_print.c \
 				  srcs/moves.c \
 				  srcs/move_ps.c \
 				  srcs/move_r.c \
@@ -31,6 +30,7 @@ SRCS			= srcs/main.c \
 
 CHECK_SRCS		= check_srcs/main.c \
 				  check_srcs/core.c \
+				  check_srcs/tools.c \
 				  check_srcs/moves.c \
 				  check_srcs/move_ps.c \
 				  check_srcs/move_r.c \

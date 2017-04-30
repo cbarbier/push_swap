@@ -26,6 +26,10 @@ typedef struct	s_pshandler
 
 typedef struct	s_ps
 {
+	char		opt_v;
+	char		opt_c;
+	char		opt_d;
+	char		opt_t;
 	t_pshandler	handlers[NB_MOVE];
 	t_list		*a;
 	t_list		*b;
@@ -47,5 +51,7 @@ int				call_handler(t_ps *ps, char *ope);
 void			free_int(void *data, size_t size);
 int				is_sort(t_ps *ps);
 int				checker_core(t_ps *ps);
+int				ps_print(t_ps *ps, char *ope);
+int				set_opt(t_ps *ps, char **argv, int argc);
 
 #endif

@@ -73,7 +73,7 @@ int						main(int argc, char **argv)
 	if (argc == 1)
 		return (1);
 	ft_bzero(&ps, sizeof(t_ps));
-	index = 1;
+	index = set_opt(&ps, argv, argc);
 	while (index < argc)
 	{
 		if (!ft_myatoi(argv[index++], &data) || is_in_list(ps.a, &data)

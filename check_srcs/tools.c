@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ps_print.c                                         :+:      :+:    :+:   */
+/*   tools.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,7 +10,36 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/solver.h"
+#include "../includes/checker.h"
+
+int				set_opt(t_ps *ps, char **argv, int argc)
+{
+	int		index;
+	int		index2;
+
+	index = 1;
+	while (index < argc && ft_strlen(argv[index]) >= 2
+			&& argv[index][0] == '-')
+	{
+		index2 = 1;
+		while (argv[index][index2])
+		{
+			if (argv[index][index2] == 'v')
+				ps->opt_v = 1;
+			else if (argv[index][index2] == 'c')
+				ps->opt_c = 1;
+			else if (argv[index][index2] == 'd')
+				ps->opt_d = 1;
+			else if (argv[index][index2] == 't')
+				ps->opt_t = 1;
+			else
+				return (argv[index][index2] == '-' ? index + 1 : index);
+			index2++;
+		}
+		index++;
+	}
+	return (index);
+}
 
 static int		put_header(t_ps *ps, char *ope)
 {
@@ -27,7 +56,7 @@ static int		put_header(t_ps *ps, char *ope)
 	return (1);
 }
 
-int				put_lists(t_ps *ps, char *ope)
+static int			put_lists(t_ps *ps, char *ope)
 {
 	t_list	*a;
 	t_list	*b;
@@ -62,10 +91,10 @@ int				ps_print(t_ps *ps, char *ope)
 		return (0);
 	index = -1;
 	d = 50;
-	usleep(100000);
+	usleep((ps->opt_t ? 500000 : 100000));
 	while (d--)
 		ft_printf("\n\n\n");
-	if (ps->opt_c)
+	if (ps->opt_d)
 	{
 		ft_bzero(up, 3 * sizeof(char));
 		while (ope[++index])
@@ -74,6 +103,6 @@ int				ps_print(t_ps *ps, char *ope)
 	}
 	else
 		put_lists(ps, "   ");
-	usleep(100000);
+	usleep((ps->opt_t ? 500000 : 100000));
 	return (1);
 }

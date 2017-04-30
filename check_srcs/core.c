@@ -12,30 +12,6 @@
 
 #include "../includes/checker.h"
 
-static int		put_lists(t_ps *ps)
-{
-	t_list	*a;
-	t_list	*b;
-
-	a = ps->a;
-	b = ps->b;
-	ft_printf("{red}%15s\t{grn}%15s\n{no}", "stack a", "stack b");
-	while (a || b)
-	{
-		if (a)
-			ft_printf("%15d\t", *((int *)(a->content)));
-		else
-			ft_printf("%15c\t", ' ');
-		if (b)
-			ft_printf("%15d\n", *((int *)(b->content)));
-		else
-			ft_printf("%15c\n", ' ');
-		a = (a ? a->next : 0);
-		b = (b ? b->next : 0);
-	}
-	return (1);
-}
-
 int				is_sort(t_ps *ps)
 {
 	t_list		*a;
@@ -55,8 +31,7 @@ int				checker_core(t_ps *ps)
 	char		*line;
 
 	init_handlers(ps);
-	if (DEBUG)
-		put_lists(ps);
+	ps_print(ps, "");
 	while (get_next_line(0, &line) > 0)
 	{
 		if (!call_handler(ps, line))
@@ -67,8 +42,7 @@ int				checker_core(t_ps *ps)
 			ft_strdel(&line);
 			return (0);
 		}
-		if (DEBUG)
-			put_lists(ps);
+		ps_print(ps, line);;
 		ft_strdel(&line);
 	}
 	ft_strdel(&line);
