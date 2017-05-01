@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/28 17:04:31 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/04/28 19:34:19 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/05/01 13:55:53 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int		ft_lstdelif(t_list **al, void (*del)(void*, size_t), int (*f)(void *))
 			if (!tmp)
 				*al = l->next;
 			else
-				tmp->next = l->next;	
+				tmp->next = l->next;
 			ft_lstdelone(&l, del);
 		}
 		else

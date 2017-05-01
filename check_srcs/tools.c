@@ -6,13 +6,13 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/27 14:42:04 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/04/27 18:52:44 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/05/01 13:59:24 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/checker.h"
 
-int				set_opt(t_ps *ps, char **argv, int argc)
+int					set_opt(t_ps *ps, char **argv, int argc)
 {
 	int		index;
 	int		index2;
@@ -41,7 +41,7 @@ int				set_opt(t_ps *ps, char **argv, int argc)
 	return (index);
 }
 
-static int		put_header(t_ps *ps, char *ope)
+static int			put_header(t_ps *ps, char *ope)
 {
 	if (ps->opt_c)
 	{
@@ -81,7 +81,7 @@ static int			put_lists(t_ps *ps, char *ope)
 	return (1);
 }
 
-int				ps_print(t_ps *ps, char *ope)
+int					ps_print(t_ps *ps, char *ope)
 {
 	int		d;
 	int		index;
